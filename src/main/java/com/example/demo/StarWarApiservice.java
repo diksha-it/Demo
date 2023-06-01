@@ -22,9 +22,10 @@ public class StarWarApiservice {
 
 	public List<Object> getAllStarship() {
 		Map<String, Object> data = restTemplate.getForObject(ALL_PEOPLES, Map.class);
+		List<Object> starshipsData=new ArrayList<>();
+		if(data != null) {
 		List<Map<String, Object>> peopleList = (List<Map<String, Object>>) data.get("results");
 		long total = 0;
-		List<Object> starshipsData=new ArrayList<>();
 		for (Map<String, Object> i : peopleList) {
 			if(!((String) i.get("name")).equals("Luke Skywalker")) {
 				List<String> starships=(List<String>) i.get("starships");
@@ -34,6 +35,7 @@ public class StarWarApiservice {
 				starshipsData.addAll(tempList);
 				}
 			}
+		}
 		}
 		return starshipsData;
 	}
